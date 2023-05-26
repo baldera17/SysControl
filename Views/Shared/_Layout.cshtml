@@ -1,0 +1,248 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi servicio - @ViewBag.Title</title>
+    <!-- Google Font: Source Sans Pro -->
+    <!-- Font Awesome -->
+
+    <link href="~/Content/all.min.css" rel="stylesheet" />
+    <link href="~/Content/adminlte.min.css" rel="stylesheet" />
+    <link href="~/Content/Plugins/select2-4.0.13/dist/css/select2.min.css" rel="stylesheet" />
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Styles.Render("~/Content/PluginsCSS")
+    @RenderSection("estilos", required: false)
+</head>
+<body>
+    <!-- Site wrapper -->
+    <div class="wrapper">
+        <!-- Navbar -->
+        <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+            <!-- Left navbar links -->
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+                </li>
+
+            </ul>
+
+            <!-- Right navbar links -->
+            <ul class="navbar-nav ml-auto">
+                <!-- Navbar Search -->
+                <li class="nav-item">
+                    <a class="nav-link" data-widget="navbar-search" href="#" role="button">
+                        <i class="fas fa-search"></i>
+                    </a>
+                    <div class="navbar-search-block">
+                        <form class="form-inline">
+                            <div class="input-group input-group-sm">
+                                <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Buscar">
+                                <div class="input-group-append">
+                                    <button class="btn btn-navbar" type="submit">
+                                        <i class="fas fa-search"></i>
+                                    </button>
+                                    <button class="btn btn-navbar" type="button" data-widget="navbar-search">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </li>
+
+                <!-- Messages Dropdown Menu -->
+                <li class="nav-item dropdown">
+                    <button id="btnSalir" onclick="CerraSesion()" class="btn btn-danger">
+                        <i class="fas fa-power-off"></i>
+                        <span class="badge badge-danger navbar-badge"></span>
+                    </button>
+
+                </li>
+            </ul>
+        </nav>
+        <!-- /.navbar -->
+        <!-- Main Sidebar Container -->
+        <aside class="main-sidebar sidebar-dark-primary elevation-4">
+            <!-- Brand Logo -->
+            <a href="#" class="brand-link">
+                <img src="~/img/Icono D letra azul con circulo blanco - (sin fondo).png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+                <span class="brand-text font-weight-light">DOKTUZ</span>
+            </a>
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <!-- Sidebar user (optional) -->
+                <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+
+                    <div class="info">
+                        <a href="@Url.Action("Index","Home")" class="d-block">INICIO</a>
+                    </div>
+                </div>
+
+                <!-- SidebarSearch Form -->
+                <div class="form-inline">
+                    
+                </div>
+
+                <!-- Sidebar Menu -->
+                <nav class="mt-2">
+                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                        <!-- Add icons to the links using the .nav-icon class
+                             with font-awesome or any other icon font library -->
+                        <li class="nav-item" id="MenuAdmin" style="display:none">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-briefcase"></i>
+                                <p>
+                                    Menu
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item" id="asistenciaad" style="display:none">
+                                    <a href="@Url.Action("Index","Marcador")" class="nav-link">
+                                        <i class="far fa-check-circle nav-icon"></i>
+                                        <p>Mi Servicio</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item" id="usuario" style="display:none">
+                                    <a href="@Url.Action("Index","Usuario")" class="nav-link">
+                                        <i class="far fa-user nav-icon"></i>
+                                        <p>Gestion de Usuarios</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item" id="empresa" style="display:none">
+                                    <a href="@Url.Action("Index","Empresa")" class="nav-link">
+                                        <i class="far fa-building nav-icon"></i>
+                                        <p>Gestion de Empresas</p>
+                                    </a>
+                                </li>
+
+                                <li class="nav-item" id="correos" style="display:none">
+                                    <a href="@Url.Action("Index","HorarioAdmin")" class="nav-link">
+                                        <i class="far fa-calendar nav-icon"></i>
+                                        <p>Servicios Programados</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item" id="marcaciones" style="display:none">
+                                    <a href="@Url.Action("Index","DetalleMarcacion")" class="nav-link">
+                                        <i class="far fa-clipboard nav-icon"></i>
+                                        <p>Servicios Ejecutados</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item" id="permisos" style="display:none">
+                                    <a href="@Url.Action("Index","Permisos")" class="nav-link">
+                                        <i class="far fa-clipboard nav-icon"></i>
+                                        <p>Asignar Permisos</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item" id="rol" style="display:none">
+                                    <a href="@Url.Action("Index","Rol")" class="nav-link">
+                                        <i class="far fa-clipboard nav-icon"></i>
+                                        <p>Asignar Rol</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="nav-item" id="menuusuarios" style="display:none">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-user"></i>
+                                <p>
+                                    Menu
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item" id="usuasistencia" style="display:none">
+                                    <a href="@Url.Action("Index","Marcador")" class="nav-link">
+                                        <i class="far fa-check-circle nav-icon"></i>
+                                        <p>Mi Servicio</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item" id="usuhorario" style="display:none">
+                                    <a href="@Url.Action("Index","Horario")" class="nav-link">
+                                        <i class="far fa-calendar nav-icon"></i>
+                                        <p>Programar Servicio</p>
+                                    </a>
+                                </li>
+
+
+                            </ul>
+                        </li>
+                    </ul>
+                </nav>
+                <!-- /.sidebar-menu -->
+            </div>
+            <!-- /.sidebar -->
+        </aside>
+
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper" style="background-color: #fefefe">
+            <!-- Main content -->
+            <section class="content" >
+                <div class="container-fluid">
+                    @RenderBody()
+
+                </div>
+            </section>
+            <!-- /.content -->
+        </div>
+        <!-- /.content-wrapper -->
+
+        <footer class="main-footer">
+            <div class="float-right d-none d-sm-block">
+                <b>Version</b> 1.0
+            </div>
+            <strong>Doktuz &copy; 2022 </strong> All rights reserved.
+        </footer>
+
+    </div>
+    <!-- jQuery -->
+    <script src="~/Scripts/jquery.min.js"></script>
+    <!-- Bootstrap 4 -->
+    <script src="~/Scripts/bootstrap.bundle.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="~/Scripts/adminlte.min.js"></script>
+    <!-- AdminLTE for demo purposes -->
+    <script src="~/Scripts/demo.js"></script>
+    
+    
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/Content/PluginsJS")
+
+    <script>
+        $(document).ready(function () {
+            var menu = "@Session["menu"]";
+            if (menu != "") {
+                var listaMenu = menu.split(",");
+                for (var i = 0; i <= listaMenu.length; i++) {
+                    $("#" + listaMenu[i]).show();
+                }
+            } else {
+                //window.location = "../Home/Salir";
+            }
+        });
+    </script>
+    <script>
+        function CerraSesion() {
+        swal({
+        title: "¿Estás seguro de Salir?",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#DD6B55",
+        confirmButtonText: "¡Sí!",
+        closeOnConfirm: false,
+         html: false
+        }, function () {
+            document.location.href ='@Url.Action("Salir","Home")';
+        });
+        };
+    </script>
+
+    @RenderSection("scripts", required: false)
+
+</body>
+</html>

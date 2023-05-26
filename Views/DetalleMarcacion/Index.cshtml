@@ -1,0 +1,243 @@
+﻿
+@{
+    ViewBag.Title = "Lista de Servicios";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card border-info">
+            <div class="card-header bg-info text-white">
+                Lista de Servicios
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <button type="button" class="btn btn-sm btn-success" onclick="ModalDetalle(0) "><i class="fa fa-plus" aria-hidden="true"></i>  Agregar Nuevo</button>
+                    </div>
+                </div>
+                <hr />
+                <div class="form-group row">
+                    <label for="staticEmail" class="col-sm-0 col-form-label col-form-label-sm">Fecha Inicio <span class="error"></span></label>
+                    <div class="col-sm-2">
+                        <input type="text" class="form-control form-control-sm model" id="txtFechaInicio" name="fechainicio" autocomplete="off">
+                    </div>
+                    <label for="staticEmail" class="col-sm-0 col-form-label col-form-label-sm">Fecha Fin <span class="error"></span></label>
+                    <div class="col-sm-2">
+                        <input type="text" class="form-control form-control-sm model" id="txtFechaFin" name="fechainicio" autocomplete="off">
+                    </div>
+
+                    <div class="col-sm-2">
+                        <button type="button" class="btn btn-sm btn-primary" onclick="buscar1()"><i class="fa fa-search"></i>Buscar</button>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <input id="txtAreaIni" class="model" value="@ViewBag.IdArea" type="hidden" />
+                    <div class="col-sm-12">
+                        <table id="tbdata" class="table table-striped table-bordered nowrap compact" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th>Fecha</th>
+                                    <th>Usuario</th>
+                                    <th>Empresa</th>
+                                    <th>Inicio</th>
+                                    <th>Fin</th>
+                                    <th>cant. Hora</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+                <div id="divTabla">
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="FormModal" tabindex="-1" role="dialog" data-backdrop="static" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-info text-white">
+                <h5 class="modal-title" id="exampleModalLabel">Listado</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="form">
+                    <input id="txtid" value="0" type="hidden" class="borrar" />
+                    <div class="form-group row">
+                        <div class="col-sm-10">
+                            <input type="hidden" class="form-control form-control-sm model borrar" id="txtUsuario" name="RUC">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="inputPassword" class="col-sm-2 col-form-label col-form-label-sm">Usuario</label>
+                        <div class="col-sm-10">
+                            <select class="form-control form-control-sm model" id="cboUsuario" style="width:60%">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="inputPassword" class="col-sm-2 col-form-label col-form-label-sm">Empresa</label>
+                        <div class="col-sm-10">
+                            <select class="form-control form-control-sm model" id="cboEmpresa" style="width:50%">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="staticEmail" class="col-sm-2 col-form-label col-form-label-sm">Fecha<span class="error"></span></label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control form-control-sm model borrar" id="txtFecha" name="fecha" style="width:50%">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="staticEmail" class="col-sm-2 col-form-label col-form-label-sm">Hora Inicio <span class="error"></span></label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control form-control-sm model borrar" id="txtHInicio" name="horainicio" style="width:50%">
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="inputPassword" class="col-sm-2 col-form-label col-form-label-sm">Hora Fin <span class="error"></span></label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control form-control-sm model borrar" id="txtHFin" name="horafin" style="width:50%">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Administrador</label>
+                        <label id="txtAdministrador" class="form-control form-control-sm model mb-1" readonly>@ViewBag.User</label>
+                    </div>
+                    <div class="form-group row">
+
+                        <div class="col-sm-10">
+                            <input type="hidden" class="form-control form-control-sm model borrar" id="txtlatitud1" name="Direccion">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+
+                        <div class="col-sm-10">
+                            <input type="hidden" class="form-control form-control-sm model borrar" id="txtLongitd1" name="Direccion">
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button id="btnCancelar" type="button" class="btn btn-sm btn-danger" data-dismiss="modal">Cerrar</button>
+                <button id="btnGuardarCambios" type="button" class="btn btn-sm btn-primary" onclick="Modificar()">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal Mapa-->
+<div class="modal fade" id="FormModal1" tabindex="-1" role="dialog" data-backdrop="static" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-info text-white">
+                <h5 class="modal-title" id="exampleModalLabel">Mapa</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="form">
+                    <div id="map" style="height: 350px;width: 100%">
+
+                    </div>
+                    <input id="txtIdDetalle" value="0" type="hidden" />
+                    <div class="form-group row">
+                        <div class="col-sm-10">
+                            <input type="hidden" class="form-control form-control-sm model" id="txtlatitud" name="latitud">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-10">
+                            <input type="hidden" class="form-control form-control-sm model" id="txtLongitd" name="longitd">
+                        </div>
+                    </div>
+
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal Mapa fin-->
+<div class="modal fade" id="FormModal2" tabindex="-1" role="dialog" data-backdrop="static" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-info text-white">
+                <h5 class="modal-title" id="exampleModalLabel">Mapa</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="form2">
+                    <div id="map1" style="height: 350px;width: 100%">
+
+                    </div>
+                    <input id="txtIdDetalle1" value="0" type="hidden" />
+                    <div class="form-group row">
+                        <div class="col-sm-10">
+                            <input type="hidden" class="form-control form-control-sm model" id="txtlatitudFin" name="latitudFin">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-10">
+                            <input type="hidden" class="form-control form-control-sm model" id="txtLongitdFin" name="longitdFin">
+                        </div>
+                    </div>
+
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="FormModal3" tabindex="-1" role="dialog" data-backdrop="static" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-info text-white">
+                <h5 class="modal-title" id="exampleModalLabel">Mapa</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                hola modal
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts{
+    <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAfzzT5rWhX3gqvKA639hebqteeNFvx_rc&callback=findMe1"></script>
+    <script src="@Url.Content("~/Scripts/Views/DetalleMarcacion_Crear.js")" type="text/javascript"></script>
+    <script src="~/Content/Plugins/datatables/js/dataTables.buttons.min.js"></script>
+    <script src="~/Content/Plugins/datatables/js/jszip/jszip.min.js"></script>
+    <script src="~/Content/Plugins/datatables/js/pdfmake/vfs_fonts.js"></script>
+    <script src="~/Content/Plugins/datatables/js/buttons.html5.min.js"></script>
+    <script src="~/Content/Plugins/datatables/js/buttons.print.min.js"></script>
+    <script src="~/Content/Plugins/datatables/js/pdfmake/pdfmake.min.js"></script>
+    <script src="~/Content/Plugins/datatables/js/pdfmake/vfs_fonts.js"></script>
+    <script src="~/Scripts/bootstrap.bundle.js"></script>
+    <script src="~/Scripts/bootstrap.bundle.min.js"></script>
+}
+
+

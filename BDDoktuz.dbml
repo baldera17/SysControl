@@ -1,0 +1,497 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="DBDoktuz" Class="BDDoktuzDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Table Name="dbo.Usuario" Member="Usuario">
+    <Type Name="Usuario">
+      <Column Name="IdUsuario" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="IdRol" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Apellidos" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Nombres" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Tipo_Doc" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Num_Doc" Type="System.String" DbType="VarChar(15) NOT NULL" CanBeNull="false" />
+      <Column Name="Direccion" Type="System.String" DbType="VarChar(150) NOT NULL" CanBeNull="false" />
+      <Column Name="Celular" Type="System.String" DbType="VarChar(9) NOT NULL" CanBeNull="false" />
+      <Column Name="Usuario" Member="Usuario1" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="Contraseña" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="Estado" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="IdArea" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Usuario_Ubicacion" Member="Ubicacion" ThisKey="IdUsuario" OtherKey="IdUsuario" Type="Ubicacion" />
+      <Association Name="Usuario_Eventos" Member="Eventos" ThisKey="IdUsuario" OtherKey="IdUsuario" Type="Eventos" />
+      <Association Name="Usuario_UsuarioEmpresa" Member="UsuarioEmpresa" ThisKey="IdUsuario" OtherKey="IdUsuario" Type="UsuarioEmpresa" />
+      <Association Name="Rol_Usuario" Member="Rol" ThisKey="IdRol" OtherKey="IdRol" Type="Rol" IsForeignKey="true" />
+      <Association Name="Area_Usuario" Member="Area" ThisKey="IdArea" OtherKey="IdArea" Type="Area" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Detalle_Ubicacion" Member="Detalle_Ubicacion">
+    <Type Name="Detalle_Ubicacion">
+      <Column Name="IdDetalle_Ubicacion" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="IdUbicacion" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IdEmpresa" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Hora_Inicio" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Hora_Fin" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Foto" Type="System.Data.Linq.Binary" DbType="Image" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Latitud" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="Longitug" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="Fin_Latitud" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="fin_Longitud" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Foto_Fin" Type="System.Data.Linq.Binary" DbType="Image" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Edita" Type="System.String" DbType="VarChar(150)" CanBeNull="true" />
+      <Association Name="Empresa_Detalle_Ubicacion" Member="Empresa" ThisKey="IdEmpresa" OtherKey="IdEmpresa" Type="Empresa" IsForeignKey="true" />
+      <Association Name="Ubicacion_Detalle_Ubicacion" Member="Ubicacion" ThisKey="IdUbicacion" OtherKey="IdUbicacion" Type="Ubicacion" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Empresa" Member="Empresa">
+    <Type Name="Empresa">
+      <Column Name="IdEmpresa" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Nombre" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="RUC" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Direccion" Type="System.String" DbType="VarChar(300) NOT NULL" CanBeNull="false" />
+      <Column Name="Estado" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Association Name="Empresa_Detalle_Ubicacion" Member="Detalle_Ubicacion" ThisKey="IdEmpresa" OtherKey="IdEmpresa" Type="Detalle_Ubicacion" />
+      <Association Name="Empresa_Correos" Member="Correos" ThisKey="IdEmpresa" OtherKey="IdEmpresa" Type="Correos" />
+      <Association Name="Empresa_UbicacionEmpresa" Member="UbicacionEmpresa" ThisKey="IdEmpresa" OtherKey="IdEmpresa" Type="UbicacionEmpresa" />
+      <Association Name="Empresa_UsuarioEmpresa" Member="UsuarioEmpresa" ThisKey="IdEmpresa" OtherKey="IdEmpresa" Type="UsuarioEmpresa" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Rol" Member="Rol">
+    <Type Name="Rol">
+      <Column Name="IdRol" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Rol" Member="Rol1" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Estado" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IdArea" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Rol_Usuario" Member="Usuario" ThisKey="IdRol" OtherKey="IdRol" Type="Usuario" />
+      <Association Name="Rol_Permisos" Member="Permisos" ThisKey="IdRol" OtherKey="IdRol" Type="Permisos" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Area" Member="Area">
+    <Type Name="Area">
+      <Column Name="IdArea" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Nombre" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Estado" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Association Name="Area_Usuario" Member="Usuario" ThisKey="IdArea" OtherKey="IdArea" Type="Usuario" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Ubicacion" Member="Ubicacion">
+    <Type Name="Ubicacion">
+      <Column Name="IdUbicacion" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="IdUsuario" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Fecha" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="Estado" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Association Name="Ubicacion_Detalle_Ubicacion" Member="Detalle_Ubicacion" ThisKey="IdUbicacion" OtherKey="IdUbicacion" Type="Detalle_Ubicacion" />
+      <Association Name="Usuario_Ubicacion" Member="Usuario" ThisKey="IdUsuario" OtherKey="IdUsuario" Type="Usuario" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Menu" Member="Menu">
+    <Type Name="Menu">
+      <Column Name="IdMenu" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Nombre" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="TagHtml" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="ID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Estado" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="Menu_Permisos" Member="Permisos" ThisKey="IdMenu" OtherKey="IdMenu" Type="Permisos" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Permisos" Member="Permisos">
+    <Type Name="Permisos">
+      <Column Name="IdPermiso" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="IdRol" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IdMenu" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Estado" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Leer" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="Registrar" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="Editar" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="Eliminar" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="Menu_Permisos" Member="Menu" ThisKey="IdMenu" OtherKey="IdMenu" Type="Menu" IsForeignKey="true" />
+      <Association Name="Rol_Permisos" Member="Rol" ThisKey="IdRol" OtherKey="IdRol" Type="Rol" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Correos" Member="Correos">
+    <Type Name="Correos">
+      <Column Name="IdCorreo" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="IdEmpresa" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Correo_Principal" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Correo1" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Correo2" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Correo3" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Correo4" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Correo5" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Correo6" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Descripcion" Type="System.String" DbType="VarChar(250) NOT NULL" CanBeNull="false" />
+      <Column Name="Asunto" Type="System.String" DbType="VarChar(350) NOT NULL" CanBeNull="false" />
+      <Column Name="Estado" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Association Name="Empresa_Correos" Member="Empresa" ThisKey="IdEmpresa" OtherKey="IdEmpresa" Type="Empresa" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Eventos" Member="Eventos">
+    <Type Name="Eventos">
+      <Column Name="IdEvento" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Empresa" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Inicio" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Fin" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Color" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="Todo_Dia" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="IdUsuario" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Estado" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Association Name="Usuario_Eventos" Member="Usuario" ThisKey="IdUsuario" OtherKey="IdUsuario" Type="Usuario" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.UbicacionEmpresa" Member="UbicacionEmpresa">
+    <Type Name="UbicacionEmpresa">
+      <Column Name="IdUbicacionEmpresa" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="IdEmpresa" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Latitud" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Longitud" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Radio" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Estado" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Association Name="Empresa_UbicacionEmpresa" Member="Empresa" ThisKey="IdEmpresa" OtherKey="IdEmpresa" Type="Empresa" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Tipo_Horario" Member="Tipo_Horario">
+    <Type Name="Tipo_Horario">
+      <Column Name="IdTipoHorario" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Descripcion" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Estado" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Association Name="Tipo_Horario_UsuarioEmpresa" Member="UsuarioEmpresa" ThisKey="IdTipoHorario" OtherKey="Tipo_Horario" Type="UsuarioEmpresa" />
+    </Type>
+  </Table>
+  <Table Name="dbo.UsuarioEmpresa" Member="UsuarioEmpresa">
+    <Type Name="UsuarioEmpresa">
+      <Column Name="IdUsuarioEmpresa" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="IdUsuario" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IdEmpresa" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Estado" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Tipo_Horario" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Empresa_UsuarioEmpresa" Member="Empresa" ThisKey="IdEmpresa" OtherKey="IdEmpresa" Type="Empresa" IsForeignKey="true" />
+      <Association Name="Tipo_Horario_UsuarioEmpresa" Member="Tipo_Horario1" ThisKey="Tipo_Horario" OtherKey="IdTipoHorario" Type="Tipo_Horario" IsForeignKey="true" />
+      <Association Name="Usuario_UsuarioEmpresa" Member="Usuario" ThisKey="IdUsuario" OtherKey="IdUsuario" Type="Usuario" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Function Name="dbo.sp_Empresa_Buscar" Method="sp_Empresa_Buscar">
+    <Parameter Name="texto" Type="System.String" DbType="VarChar(50)" />
+    <ElementType Name="sp_Empresa_BuscarResult">
+      <Column Name="IdEmpresa" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Nombre" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_Usuario_Insertar" Method="sp_Usuario_Insertar">
+    <Parameter Name="rol" Type="System.Int32" DbType="Int" />
+    <Parameter Name="apellidos" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="nombres" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="tipo_Doc" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="num_Doc" Type="System.String" DbType="VarChar(15)" />
+    <Parameter Name="direccion" Type="System.String" DbType="VarChar(150)" />
+    <Parameter Name="celular" Type="System.String" DbType="VarChar(9)" />
+    <Parameter Name="usuario" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="contraseña" Type="System.String" DbType="VarChar(100)" />
+    <Parameter Name="idarea" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_Usuario_Modificar" Method="sp_Usuario_Modificar">
+    <Parameter Name="idUsuario" Type="System.Int32" DbType="Int" />
+    <Parameter Name="rol" Type="System.Int32" DbType="Int" />
+    <Parameter Name="apellidos" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="nombres" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="tipo_Doc" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="num_Doc" Type="System.String" DbType="VarChar(15)" />
+    <Parameter Name="direccion" Type="System.String" DbType="VarChar(150)" />
+    <Parameter Name="celular" Type="System.String" DbType="VarChar(9)" />
+    <Parameter Name="usuario" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="contraseña" Type="System.String" DbType="VarChar(100)" />
+    <Parameter Name="idarea" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_ActualizarContraseña" Method="sp_ActualizarContraseña">
+    <Parameter Name="idUsuario" Type="System.Int32" DbType="Int" />
+    <Parameter Name="rol" Type="System.Int32" DbType="Int" />
+    <Parameter Name="apellidos" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="nombres" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="tipo_Doc" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="num_Doc" Type="System.String" DbType="VarChar(15)" />
+    <Parameter Name="direccion" Type="System.String" DbType="VarChar(150)" />
+    <Parameter Name="celular" Type="System.String" DbType="VarChar(9)" />
+    <Parameter Name="usuario" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="contraseña" Type="System.String" DbType="VarChar(100)" />
+    <Parameter Name="idarea" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_Usuario_Eliminar" Method="sp_Usuario_Eliminar">
+    <Parameter Name="idusuario" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_UsuarioEmpresa_Eliminar" Method="sp_UsuarioEmpresa_Eliminar">
+    <Parameter Name="idusuarioempresa" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_UsuarioEmpresa_Editar" Method="sp_UsuarioEmpresa_Editar">
+    <Parameter Name="idusuem" Type="System.Int32" DbType="Int" />
+    <Parameter Name="idusuario" Type="System.Int32" DbType="Int" />
+    <Parameter Name="idempresa" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_Empresa_Mostrar" Method="sp_Empresa_Mostrar">
+    <ElementType Name="sp_Empresa_MostrarResult">
+      <Column Name="IdEmpresa" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Nombre" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="RUC" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Direccion" Type="System.String" DbType="VarChar(300) NOT NULL" CanBeNull="false" />
+      <Column Name="Estado" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_Empresa_Modificar" Method="sp_Empresa_Modificar">
+    <Parameter Name="idEmpresa" Type="System.Int32" DbType="Int" />
+    <Parameter Name="nombre" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="ruc" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="direccion" Type="System.String" DbType="VarChar(300)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_Empresa_Insertar" Method="sp_Empresa_Insertar">
+    <Parameter Name="nombre" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="ruc" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="direccion" Type="System.String" DbType="VarChar(50)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_Empresa_Eliminar" Method="sp_Empresa_Eliminar">
+    <Parameter Name="idempresa" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_Empresa_RecuperarDatos" Method="sp_Empresa_RecuperarDatos">
+    <Parameter Name="idempresa" Type="System.Int32" DbType="Int" />
+    <ElementType Name="sp_Empresa_RecuperarDatosResult">
+      <Column Name="IdEmpresa" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Nombre" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="RUC" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Direccion" Type="System.String" DbType="VarChar(300) NOT NULL" CanBeNull="false" />
+      <Column Name="Latitud" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Longitud" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Radio" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_Empresa_Editar" Method="sp_Empresa_Editar">
+    <Parameter Name="idEmpresa" Type="System.Int32" DbType="Int" />
+    <Parameter Name="nombre" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="ruc" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="direccion" Type="System.String" DbType="VarChar(300)" />
+    <Parameter Name="latitud" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="longitud" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="radio" Type="System.String" DbType="VarChar(50)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_ListarEmpresa_Marcar" Method="sp_ListarEmpresa_Marcar">
+    <Parameter Name="idempresa" Type="System.Int32" DbType="Int" />
+    <ElementType Name="sp_ListarEmpresa_MarcarResult">
+      <Column Name="IdEmpresa" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Nombre" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Latitud" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Longitud" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Radio" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_FinalizarServicio" Method="sp_FinalizarServicio">
+    <Parameter Name="idubicacion" Type="System.Int32" DbType="Int" />
+    <Parameter Name="horafin" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="fin_Latitud" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="fin_Longitud" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="fin_Foto" Type="System.Data.Linq.Binary" DbType="Image" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_Ultima_Marcacion" Method="sp_Ultima_Marcacion">
+    <Parameter Name="idusuario" Type="System.Int32" DbType="Int" />
+    <ElementType Name="sp_Ultima_MarcacionResult">
+      <Column Name="IdUbicacion" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Fecha" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="Apellidos" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Nombres" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="IdEmpresa" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Hora_Inicio" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Hora_Fin" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_Ultima_Ubicacion" Method="sp_Ultima_Ubicacion">
+    <Parameter Name="idusuario" Type="System.Int32" DbType="Int" />
+    <ElementType Name="sp_Ultima_UbicacionResult">
+      <Column Name="IdUbicacion" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_Permisos_Mostrar" Method="sp_Permisos_Mostrar">
+    <Parameter Name="idrol" Type="System.Int32" DbType="Int" />
+    <ElementType Name="sp_Permisos_MostrarResult">
+      <Column Name="IdPermiso" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Rol" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Nombre" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Leer" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="Registrar" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="Editar" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="Eliminar" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="Estado" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_Rol_Mostrar" Method="sp_Rol_Mostrar">
+    <ElementType Name="sp_Rol_MostrarResult">
+      <Column Name="IdRol" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Rol" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Area" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Estado" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_Rol_Editar" Method="sp_Rol_Editar">
+    <Parameter Name="idRol" Type="System.Int32" DbType="Int" />
+    <Parameter Name="idarea" Type="System.Int32" DbType="Int" />
+    <Parameter Name="rol" Type="System.String" DbType="VarChar(50)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_RegistrarRol" Method="sp_RegistrarRol">
+    <Parameter Name="rol" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="idarea" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Resultado" Parameter="resultado" Type="System.Boolean" DbType="Bit" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_Correo_Empresa" Method="sp_Correo_Empresa">
+    <Parameter Name="idempresa" Type="System.Int32" DbType="Int" />
+    <ElementType Name="sp_Correo_EmpresaResult">
+      <Column Name="Correo_Principal" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Correo1" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Correo2" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Correo3" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Correo4" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Correo5" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Correo6" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Descripcion" Type="System.String" DbType="VarChar(250) NOT NULL" CanBeNull="false" />
+      <Column Name="Asunto" Type="System.String" DbType="VarChar(350) NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_UsuarioId" Method="sp_UsuarioId">
+    <Parameter Name="usuario" Type="System.String" DbType="VarChar(200)" />
+    <ElementType Name="sp_UsuarioIdResult">
+      <Column Name="IdUsuario" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_Obtener_Marcacion" Method="sp_Obtener_Marcacion">
+    <Parameter Name="id" Type="System.Int32" DbType="Int" />
+    <ElementType Name="sp_Obtener_MarcacionResult">
+      <Column Name="IdDetalle_Ubicacion" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IdUbicacion" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Fecha" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="IdUsuario" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IdEmpresa" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Hora_Inicio" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Hora_Fin" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Horas_Trabajadas" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
+      <Column Name="Edita" Type="System.String" DbType="VarChar(150)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_DetalleUbicacion_Editar" Method="sp_DetalleUbicacion_Editar">
+    <Parameter Name="id" Type="System.Int32" DbType="Int" />
+    <Parameter Name="hinicio" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="hfin" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="edita" Type="System.String" DbType="VarChar(150)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_Horario_Mostrar" Method="sp_Horario_Mostrar">
+    <Parameter Name="idusuario" Type="System.Int32" DbType="Int" />
+    <ElementType Name="sp_Horario_MostrarResult">
+      <Column Name="IdUsuario" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IdEvento" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Empresa" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Inicio" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Fin" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Color" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="Todo_Dia" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_HorarioEmpresa_Mostrar" Method="sp_HorarioEmpresa_Mostrar">
+    <Parameter Name="empresa" Type="System.String" DbType="VarChar(50)" />
+    <ElementType Name="sp_HorarioEmpresa_MostrarResult">
+      <Column Name="IdUsuario" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Usuario" Type="System.String" DbType="VarChar(101) NOT NULL" CanBeNull="false" />
+      <Column Name="IdEvento" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Empresa" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Inicio" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Fin" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Color" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="Todo_Dia" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_HorarioUsuario_Mostrar" Method="sp_HorarioUsuario_Mostrar">
+    <Parameter Name="empresa" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="usuario" Type="System.String" DbType="VarChar(100)" />
+    <ElementType Name="sp_HorarioUsuario_MostrarResult">
+      <Column Name="IdUsuario" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Usuario" Type="System.String" DbType="VarChar(101) NOT NULL" CanBeNull="false" />
+      <Column Name="IdEvento" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Empresa" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Inicio" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Fin" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Color" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="Todo_Dia" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_DetalleUbicacion_Mostrar" Method="sp_DetalleUbicacion_Mostrar">
+    <Parameter Name="idarea" Type="System.Int32" DbType="Int" />
+    <ElementType Name="sp_DetalleUbicacion_MostrarResult">
+      <Column Name="IdDetalle_Ubicacion" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Fecha" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Usuario" Type="System.String" DbType="VarChar(101) NOT NULL" CanBeNull="false" />
+      <Column Name="Nombre" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Hora_Inicio" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Hora_Fin" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Horas_Trabajadas" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
+      <Column Name="Edita" Type="System.String" DbType="VarChar(150)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_Buscar_DetalleMarcacion" Method="sp_Buscar_DetalleMarcacion">
+    <Parameter Name="idarea" Type="System.Int32" DbType="Int" />
+    <Parameter Name="fechainicio" Type="System.DateTime" DbType="Date" />
+    <Parameter Name="fechafin" Type="System.DateTime" DbType="Date" />
+    <ElementType Name="sp_Buscar_DetalleMarcacionResult">
+      <Column Name="IdDetalle_Ubicacion" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Fecha" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Usuario" Type="System.String" DbType="VarChar(101) NOT NULL" CanBeNull="false" />
+      <Column Name="Nombre" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Hora_Inicio" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Hora_Fin" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Horas_Trabajadas" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
+      <Column Name="Edita" Type="System.String" DbType="VarChar(150)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_Horario_Aprobar" Method="sp_Horario_Aprobar">
+    <Parameter Name="idusuario" Type="System.Int32" DbType="Int" />
+    <Parameter Name="empresa" Type="System.String" DbType="VarChar(50)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_Usuario_Mostrar" Method="sp_Usuario_Mostrar">
+    <Parameter Name="idarea" Type="System.Int32" DbType="Int" />
+    <ElementType Name="sp_Usuario_MostrarResult">
+      <Column Name="IdUsuario" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Apellidos" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Nombres" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Tipo_Doc" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Num_Doc" Type="System.String" DbType="VarChar(15) NOT NULL" CanBeNull="false" />
+      <Column Name="Estado" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_Listar_EventosMes" Method="sp_Listar_EventosMes">
+    <Parameter Name="id" Type="System.Int32" DbType="Int" />
+    <ElementType Name="sp_Listar_EventosMesResult">
+      <Column Name="IdEvento" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Empresa" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Inicio" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Fin" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Color" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="Todo_Dia" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="IdUsuario" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Estado" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_ListarEmpresa_Usuario" Method="sp_ListarEmpresa_Usuario">
+    <Parameter Name="idusuario" Type="System.Int32" DbType="Int" />
+    <ElementType Name="sp_ListarEmpresa_UsuarioResult">
+      <Column Name="IdUsuarioEmpresa" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Nombre" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Tipo_Horario" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_UsuarioEmpresa_Insertar" Method="sp_UsuarioEmpresa_Insertar">
+    <Parameter Name="idusuario" Type="System.Int32" DbType="Int" />
+    <Parameter Name="idempresa" Type="System.Int32" DbType="Int" />
+    <Parameter Name="idtipohorario" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+</Database>

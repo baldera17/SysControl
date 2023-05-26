@@ -1,0 +1,92 @@
+﻿
+@{
+    ViewBag.Title = "Horario Fijo";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div>
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                </div>
+
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <!-- left column -->
+                <!--/.col (left) -->
+                <!-- right column -->
+                <div class="container-fluid">
+
+                    <!-- general form elements disabled -->
+                    <div class="card card-warning">
+                        <div class="card-header">
+                            <h3 class="card-title">Mi Servicio</h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                            <form>
+                                <div class="row">
+
+                                    <input id="txtIdDetalleUbicacion" type="hidden" value="0" />
+                                    <input id="txtIdUsuario" type="hidden" value="0" />
+                                    <div class="col-sm-3">
+                                        <!-- text input -->
+                                        <div class="form-group">
+                                            <label>Nombres y Apellidos</label>
+                                            <label class="form-control form-control-sm model mb-1" readonly>@ViewBag.User</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label>Fecha</label>
+                                            <input id="txtfechaventa" type="text" class="form-control" placeholder="Enter ..." disabled>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <!-- textarea -->
+                                        <div class="form-group">
+                                            <label>Empresa</label>
+                                            <select id="cboEmpresa" type="text" class="form-control" rows="3" placeholder="Enter ..."></select>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label>Hora</label>
+                                            <label id="txtHora" class="form-control form-control-sm model mb-1" readonly></label>
+                                        </div>
+                                    </div>
+                                  
+
+                                </div>
+                                
+                            </form>
+                        </div>
+
+
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+                <!-- /.card -->
+            </div>
+            <!--/.col (right) -->
+        </div>
+        <!-- /.row -->
+    </section>
+    
+</div><!-- /.container-fluid -->
+<!-- Modal -->
+
+
+
+
